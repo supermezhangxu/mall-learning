@@ -8,6 +8,26 @@ spring:
     password: root
   main:
     allow-circular-references: true
+  redis:
+    host: localhost
+    database: 8
+    port: 6379
+    password:
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1ms
+        max-idle: 8
+        min-idle: 8
+    timeout: 3000ms
+
+# 自定义redis key
+redis:
+  key:
+    prefix:
+      authCode: "portal:authCode:"
+    expire:
+      authCode: 20 # 验证码超期时间
 
 mybatis:
   mapper-locations:
