@@ -45,3 +45,30 @@ Redis官方有starter，因此自动配置了需要的功能。
 
 这里灵活使用了配置文件进行配置，比如redis存储验证码的失效时间，可以在配置文件中灵活设置，使用@Value注解来完成注入
 。
+
+
+### mall整合SpringSecurity和JWT实现认证和授权
+
+![img.png](img.png)
+
+
+#### 如何整合SpringSecurity和JWT实现认证和授权？
+首先引入对应的场景依赖，接着配置SpringSecurity，配置包括例如：拦截和放行的请求路径，
+缓存的禁用，JWT filter等等，还有SpringSecurity使用的UserDetailsService
+，其实就是一个根据用户名返回用户信息的lambda，也就是UserDetails，这里对其进行了扩展，使用了
+AdminUserDetails。
+
+**JWT的使用**：首先封装工具类，JwtTokenUtil，里面封装了关于token的使用。添加过滤器OncePerRequestFilter
+，在用户名和密码校验前添加的过滤器，如果请求中有jwt的token且有效，会取出token中的用户名，然后调用SpringSecurity的API进行登录操作。
+
+**SpringSecurity的使用**：
+添加了RestAuthenticationEntryPoint，当未登录或者token失效访问接口时，自定义的返回结果。
+添加了RestfulAccessDeniedHandler，当访问接口没有权限时，自定义的返回结果。
+
+#### SpringSecurity和JWT实现认证和授权的原理：
+首先当客户端发起请求时，RestAuthenticationEntryPoint会调用方法处理响应结果，也就是响应给客户端未登录或者token失效。
+这时客户端会进行登录，登录主要做两个事情，第一个是使用UserDetailsService根据用户名加载对应的UserDetails，
+密码验证通过后，进行授权认证，授权认证是授予一个token的认证，简单说是可以使用token。接下来返回token给客户端。到此，完成了认证和授权，后续的请求
+中都会在请求头中携带token信息，之后用户每次调用接口都在http的header中添加一个叫Authorization的头，值为JWT的token
+，后台程序通过对Authorization头中信息的解码及数字签名校验来获取其中的用户信息，从而实现认证和授权。
+
