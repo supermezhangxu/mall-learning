@@ -72,3 +72,11 @@ AdminUserDetails。
 中都会在请求头中携带token信息，之后用户每次调用接口都在http的header中添加一个叫Authorization的头，值为JWT的token
 ，后台程序通过对Authorization头中信息的解码及数字签名校验来获取其中的用户信息，从而实现认证和授权。
 
+
+### mall整合Elasticsearch实现商品搜索
+
+Elasticsearch 是一个分布式、可扩展、实时的搜索与数据分析引擎。 它能从项目一开始就赋予你的数据以搜索、分析和探索的能力，可用于实现全文搜索和实时数据统计。
+
+具体使用：首先下载配置Elasticsearch，可以把它看成是一个数据库，接下来结合Spring Data Elasticsearch进行开发。
+定义搜索信息实体类，在定义实体类时，结合注解@Document，@Field的注解来进行标识，这样是为了数据搜索服务。定义es操作接口，实现一些数据库操作。
+接下来就是具体业务开发了。
