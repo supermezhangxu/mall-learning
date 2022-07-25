@@ -49,7 +49,7 @@ Redis官方有starter，因此自动配置了需要的功能。
 
 ### mall整合SpringSecurity和JWT实现认证和授权
 
-![img.png](img.png)
+[//]: # (![img.png]&#40;img.png&#41;)
 
 
 #### 如何整合SpringSecurity和JWT实现认证和授权？
