@@ -72,4 +72,16 @@ public class EsProductController {
         return CommonResult.success(CommonPage.restPage(list));
     }
 
+    @ApiOperation(value = "基于简单模式加上品牌搜索")
+    @RequestMapping(value = "/search/simple_plus", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<CommonPage<EsProduct>> search_plus(@RequestParam(required = false) String keyword,
+                                                           @RequestParam(required = false, defaultValue = "0") Integer pageNum,
+                                                           @RequestParam(required = false, defaultValue = "5") Integer pageSize)
+    {
+        Page<EsProduct> esProductPage = esProductService.searchPlus(keyword, pageNum, pageSize);
+        List<EsProduct> list = esProductPage.get().collect(Collectors.toList());
+        return CommonResult.success(CommonPage.restPage(list));
+    }
+
 }

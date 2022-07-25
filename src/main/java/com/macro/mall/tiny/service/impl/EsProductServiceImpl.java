@@ -78,4 +78,10 @@ public class EsProductServiceImpl implements EsProductService {
         return productRepository.findByNameOrSubTitleOrKeywords(keyword, keyword, keyword, pageable);
     }
 
+    @Override
+    public Page<EsProduct> searchPlus(String keyword, Integer pageNum, Integer pageSize) {
+        Pageable pageable = PageRequest.of(pageNum, pageSize);
+        return productRepository.findByNameOrSubTitleOrKeywordsOrBrandName(keyword, keyword, keyword, keyword, pageable);
+    }
+
 }
