@@ -88,3 +88,19 @@ es是一个文档型数据库，在关系型数据库mysql中数据库，表，�
 
 es搜索的原理：主要借助于索引，es会在存储数据时建立每一个字段的索引，借助于索引，我们可以很快的根据我们字段内容实现我们需要的类型对象。
 
+### mall整合Mongodb实现文档操作
+
+#### 业务场景
+实现用户商品浏览记录的创建，根据用户ID获取浏览记录，以及根据ID删除指定的浏览记录
+
+#### 开发流程
+1. 定义用户历史浏览记录的文档对象，即MemberReadHistory，在这个类上要标注@Document，对于类中的属性，文档对象的ID域添加@Id注解，需要检索的字段添加@Indexed注解。
+2. 定义dao层接口MemberReadHistoryRepository来操作mongodb数据库CRUD，这个接口只需继承MongoRepository<MemberReadHistory,String>，即可实现基本的CRUD功能，甚至都不需要方法的实现，对于业务需要的功能，则可以自定义衍生查询，按照名字定义好抽象方法即可，也是不需要实现的。
+3. 定义service层接口MemberReadHistoryService
+4. 定义controller层MemberReadHistoryController
+
+#### 要点解析
+无
+
+#### 注意事项
+无
